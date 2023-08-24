@@ -13,7 +13,7 @@ namespace Business.Abstract
     {
         IDataResult<List<Order>> GetAll();
         IDataResult<List<Order>> GetById(int id);
-        IDataResult<List<Order>> GetByUnitPrice(decimal min, decimal max);
+        
         IDataResult<List<OrderDetailDto>> GetProductDetails();
         IResult Add(Order order);
         IResult Delete(Order order);
