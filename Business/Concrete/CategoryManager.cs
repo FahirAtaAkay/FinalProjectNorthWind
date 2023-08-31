@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Core.Messages;
 using Core.Utilities.Results;
+using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Dto_s;
 using System;
@@ -12,30 +14,41 @@ namespace Business.Concrete
 {
     public class CategoryManager : ICategoryService
     {
+        ICategoryDal _categoryDal;
+        public CategoryManager(ICategoryDal categoryDal)
+        {
+                _categoryDal = categoryDal;
+        }
         public IResult Add(Category category)
         {
-            throw new NotImplementedException();
+            if(category.CategoryName.Length < 2) 
+            {
+                return new ErrorResult(Messages.InvalidName);
+            }
+            else 
+            {
+                return new SuccessResult(Messages.Added);
+            }
         }
 
         public IResult Delete(Category category)
         {
-            throw new NotImplementedException();
+            _categoryDal.Delete(category);
+            return new SuccessResult(Messages.Deleted);
         }
 
         public IDataResult<List<Category>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),Messages.Listed);
         }
 
         public IDataResult<List<Category>> GetById(int id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(p => p.CategoryId == id), Messages.Listed);
+
         }
 
-        public IDataResult<List<Category>> GetByUnitPrice(decimal min, decimal max)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public IDataResult<List<CategoryDto>> GetProductDetails()
         {
@@ -44,7 +57,8 @@ namespace Business.Concrete
 
         public IResult Update(Category category)
         {
-            throw new NotImplementedException();
+            _categoryDal.Update(category);
+            return new SuccessResult(Messages.Updated);
         }
     }
 }

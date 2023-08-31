@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
+using Core.Messages;
 using Core.Utilities.Results;
+using DataAccess.Abstract;
+using DataAccess.EntityFramework;
 using Entities.Concrete;
 using Entities.Dto_s;
 using System;
@@ -12,37 +15,53 @@ namespace Business.Concrete
 {
     public class CustomerManager : ICustomerService
     {
+        ICustomerDal _customerDal;
+        public CustomerManager(ICustomerDal customerDal)
+        {
+                _customerDal = customerDal;
+        }
         public IResult Add(Customer customer)
         {
-            throw new NotImplementedException();
+            if (customer.FirstName.Length < 2)
+            {
+                return new ErrorResult(Messages.InvalidName);
+            }
+            else
+            {
+                return new SuccessResult(Messages.Added);
+            }
         }
 
-        public IResult Delete(Customer cudtomer)
+        public IResult Delete(Customer customer)
         {
-            throw new NotImplementedException();
+            _customerDal.Delete(customer);
+            return new SuccessResult(Messages.Deleted);
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.Listed);
         }
 
-        public IDataResult<List<Customer>> GetById(int id)
+        public IDataResult<List<Customer>> GetById(string id)
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(p => p.CustomerId== id), Messages.Listed);
+
         }
 
-        public IDataResult<List<Customer>> GetByUnitPrice(decimal min, decimal max)
-        {
-            throw new NotImplementedException();
-        }
 
-        public IDataResult<List<CustomerDetailDto>> GetProductDetails()
+        public IDataResult<List<CategoryDto>> GetProductDetails()
         {
             throw new NotImplementedException();
         }
 
         public IResult Update(Customer customer)
+        {
+            _customerDal.Update(customer);
+            return new SuccessResult(Messages.Updated);
+        }
+
+        IDataResult<List<CustomerDetailDto>> ICustomerService.GetProductDetails()
         {
             throw new NotImplementedException();
         }

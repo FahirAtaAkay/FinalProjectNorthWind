@@ -12,8 +12,8 @@ namespace Business.Abstract
     public interface ICustomerService
     {
         IDataResult<List<Customer>> GetAll();
-        IDataResult<List<Customer>> GetById(int id);
-        IDataResult<List<Customer>>GetByUnitPrice(decimal min, decimal max);
+        IDataResult<List<Customer>> GetById(string id);
+        
         IDataResult<List<CustomerDetailDto>> GetProductDetails();
         IResult Add(Customer customer);
         IResult Delete(Customer cudtomer);
