@@ -14,5 +14,9 @@ namespace Core.Messages
         public static string Listed = "LISTED SUCCESSFULLY";
         public static string InvalidName = "USE AT LEAST TWO CHARACTERS";
         public static string NotListed = "AN ERROR OCCURED WHİLE LISTING";
+        public static string InvalidQuantityOfProducts = "max amounth of products for each category is 10";
+public static string InvalıdQuantityOfProducts;
+        public static string Empty = "";
+        public static string CategoryLimitExeeded = "Kategori sayısı sınırı aşıldı";
     }
 }

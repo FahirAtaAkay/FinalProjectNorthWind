@@ -13,7 +13,7 @@ namespace DataAccess.EntityFramework
         // connected db tables with our database 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=FahirAkayDb;Trusted_Connestion=true");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Northwind;Trusted_Connection=True");
         }
         //associated our entity classes to db tables
         public DbSet<Product> Products { get; set; }
